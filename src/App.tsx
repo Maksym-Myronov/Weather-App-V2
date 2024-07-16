@@ -4,7 +4,7 @@ import { Layout } from 'Layout/index';
 import { Home } from 'pages/Home';
 import { RouteEnum } from 'routes/route.enum';
 
-export const App = () => {
+export const App: React.FC = () => {
 	return (
 		<Routes>
 			<Route path={RouteEnum.General} element={<Layout />}>

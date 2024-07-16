@@ -1,5 +1,6 @@
 /* Links */
 @use 'styles/fonts/index';
+@import 'styles/palette';
 
 *,
 *::before,
@@ -49,12 +50,12 @@ body {
 }
 
 body {
-	font-family: 'Roboto Condensed', sans-serif;
-	font-optical-sizing: auto;
+	font-family: 'Inter', sans-serif;
 	font-style: normal;
 	font-weight: 400;
 	margin: 0 auto;
 	height: 100%;
+	background: $bg-black;
 }
 
 body::-webkit-scrollbar {
