@@ -1,0 +1,83 @@
+@import 'styles/mixins';
+@import 'styles/palette';
+
+.header {
+	background: #313131;
+	color: $white;
+	padding: 20px 0;
+
+	&__container {
+		max-width: 1320px;
+		margin: 0 auto;
+		@include d-flex(null, space-between, center);
+
+		&__search {
+			@include d-flex(null, space-between, center);
+		}
+
+		&__input {
+			@include d-flex(null, space-between, center);
+			background: $white;
+			border-radius: 7px;
+		}
+	}
+
+	&__input {
+		padding: 8px 10px;
+		outline: none;
+		border-radius: 7px;
+	}
+
+	&__icon {
+		padding: 0 5px;
+	}
+
+	&__btn {
+		background: #58a5ff;
+		margin-left: 20px;
+		padding: 8px 32px;
+		cursor: pointer;
+		border-radius: 7px;
+		color: $white;
+	}
+
+	&__name {
+		margin: 0 60px 0 30px;
+		font-weight: 600;
+	}
+
+	&__location {
+		@include d-flex(null, space-between, center);
+		gap: 80px;
+
+		&__container {
+			@include d-flex(null, space-between, center);
+			gap: 5px;
+		}
+	}
+
+	&__links {
+		@include d-flex(null, space-between, center);
+		gap: 50px;
+	}
+}
+
+.header__city_list {
+	background-color: white;
+	color: black;
+	position: absolute;
+	width: 223px;
+	top: 45px;
+	border-radius: 4px;
+	list-style: none;
+	padding: 0;
+	max-height: 200px;
+
+	li {
+		padding: 10px;
+		cursor: pointer;
+		&:hover {
+			background-color: #f0f0f0;
+		}
+	}
+}
