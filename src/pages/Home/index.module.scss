@@ -1,0 +1,17 @@
+@import 'styles/mixins';
+
+.home {
+	&__widgets {
+		&__first {
+			@include d-flex(null, space-between, center);
+			gap: 50px;
+			margin-top: 40px;
+		}
+
+		&__second {
+			@include d-flex(null, space-between, center);
+			gap: 50px;
+			margin-top: 40px;
+		}
+	}
+}
