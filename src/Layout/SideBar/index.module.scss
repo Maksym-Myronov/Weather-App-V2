@@ -1,0 +1,60 @@
+@import 'styles/mixins';
+@import 'styles/palette';
+
+.recent {
+	width: 346px;
+
+	&__header {
+		@include d-flex(null, space-between, center);
+		margin: 40px 0 20px 0;
+		color: $white;
+		font-weight: 500;
+		font-size: 1.5rem;
+	}
+
+	&__btn {
+		color: $white;
+		text-decoration: underline;
+	}
+
+	&__cards {
+		background: $white;
+		border-radius: 10px;
+		padding: 10px;
+	}
+
+	&__card {
+		@include d-flex(null, space-between, center);
+		margin-bottom: 20px;
+	}
+
+	&__images {
+		width: 16px;
+		height: 16px;
+	}
+
+	&__weather {
+		width: 80px;
+		height: 80px;
+	}
+
+	&__block {
+		@include d-flex(null, space-between, center);
+	}
+
+	&__location {
+		@include d-flex(null, space-between, center);
+		gap: 10px;
+	}
+
+	&__temrature {
+		font-weight: 600;
+		font-size: 2rem;
+		margin-bottom: 10px;
+	}
+
+	button {
+		background: none;
+		cursor: pointer;
+	}
+}
