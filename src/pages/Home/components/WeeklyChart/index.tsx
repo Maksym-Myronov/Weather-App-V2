@@ -5,7 +5,13 @@ import { WeatherData } from 'core/types/weekly-chart.type';
 // Styles
 import s from './index.module.scss';
 
-export const WeeklyChart: React.FC = () => {
+interface WeeklyChartProps {
+	renderWeatherImage: (weatherCondition: string) => string;
+}
+
+export const WeeklyChart: React.FC<WeeklyChartProps> = ({
+	renderWeatherImage
+}) => {
 	const forecast = useAppSelector((state: RootState) => state.forecast);
 	console.log(forecast);
 	const getFirstDateOfEachDay = (weatherData: WeatherData[]): WeatherData[] => {
@@ -39,14 +45,30 @@ export const WeeklyChart: React.FC = () => {
 				});
 				result.push(closestTime);
 			} else {
-				const firstTime = groupedByDay[date].sort(
+				const sortedByTime = groupedByDay[date].sort(
 					(a, b) => new Date(a.dt_txt).getTime() - new Date(b.dt_txt).getTime()
-				)[0];
-				result.push(firstTime);
+				);
+				const afterNoon = sortedByTime.find(
+					(item) => new Date(item.dt_txt).getHours() >= 8
+				);
+				result.push(afterNoon ? afterNoon : sortedByTime[0]);
 			}
 		}
 
 		return result;
+	};
+
+	const daysOfWeek = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+	const getDayLabel = (dataString: string): string => {
+		const date = new Date(dataString);
+		const today = new Date();
+
+		if (date.toDateString() === today.toDateString()) {
+			return 'Today';
+		} else {
+			return daysOfWeek[date.getDay()];
+		}
 	};
 
 	const weatherData: WeatherData[] = Array.isArray(forecast.data.list)
@@ -59,8 +81,16 @@ export const WeeklyChart: React.FC = () => {
 			{filteredData.map((item) => (
 				<div key={item.dt_txt}>
 					<div className={s.chart__max}>
-						<p>{Math.floor(item.main.temp_max - 273.15)}°</p>
-						<p>{Math.floor(item.main.temp_min - 273.15)}°</p>
+						<p className={s.chart__day}>{getDayLabel(item.dt_txt)}</p>
+						<img src={renderWeatherImage(item.weather[0].main)} alt="weather" />
+						<div className={s.chart__temperature}>
+							<p className={s.chart__degree__max}>
+								{Math.floor(item.main.temp_max - 273.15)}°
+							</p>
+							<p className={s.chart__degree__min}>
+								{Math.floor(item.main.temp_min - 273.15)}°
+							</p>
+						</div>
 					</div>
 				</div>
 			))}
