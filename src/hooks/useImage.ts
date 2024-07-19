@@ -39,5 +39,7 @@ export const useImage = () => {
 		return imageSource;
 	};
 
+
+
 	return [renderWeatherImage];
 };

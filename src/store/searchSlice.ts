@@ -14,12 +14,14 @@ interface WeatherData {
 
 interface SearchState {
 	data: WeatherData[];
+	city: WeatherData[];
 	status: 'idle' | 'loading' | 'succeeded' | 'failed';
 	error: string | null;
 }
 
 const initialState: SearchState = {
 	data: [],
+	city: [],
 	status: 'idle',
 	error: null
 };
@@ -59,7 +61,11 @@ export const getCityInfo = createAsyncThunk<
 export const searchSlice = createSlice({
 	name: 'search',
 	initialState,
-	reducers: {},
+	reducers: {
+		removeCityFromArray: (state, action: PayloadAction<number>) => {
+			state.city = state.city.filter((city) => city.id !== action.payload);
+		}
+	},
 	extraReducers: (builder) => {
 		builder
 			.addCase(fetchWeatherData.pending, (state) => {
@@ -84,7 +90,12 @@ export const searchSlice = createSlice({
 				getCityInfo.fulfilled,
 				(state, action: PayloadAction<WeatherData>) => {
 					state.status = 'succeeded';
-					state.data = [action.payload];
+					const cityExists = state.city.some(
+						(city) => city.id === action.payload.id
+					);
+					if (!cityExists) {
+						state.city.push(action.payload);
+					}
 					state.error = null;
 				}
 			)
@@ -96,3 +107,4 @@ export const searchSlice = createSlice({
 });
 
 export default searchSlice.reducer;
+export const { removeCityFromArray } = searchSlice.actions;
