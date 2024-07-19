@@ -13,7 +13,7 @@ export const WeeklyChart: React.FC<WeeklyChartProps> = ({
 	renderWeatherImage
 }) => {
 	const forecast = useAppSelector((state: RootState) => state.forecast);
-	console.log(forecast);
+
 	const getFirstDateOfEachDay = (weatherData: WeatherData[]): WeatherData[] => {
 		const today = new Date().toISOString().split('T')[0];
 		const groupedByDay: { [key: string]: WeatherData[] } = weatherData.reduce(

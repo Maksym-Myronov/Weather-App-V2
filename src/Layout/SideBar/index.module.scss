@@ -3,6 +3,7 @@
 
 .recent {
 	width: 346px;
+	margin-bottom: 20px;
 
 	&__header {
 		@include d-flex(null, space-between, center);
@@ -15,6 +16,13 @@
 	&__btn {
 		color: $white;
 		text-decoration: underline;
+		background: none;
+		cursor: pointer;
+	}
+
+	&__crosser {
+		background: none;
+		cursor: pointer;
 	}
 
 	&__cards {
@@ -52,9 +60,8 @@
 		font-size: 2rem;
 		margin-bottom: 10px;
 	}
+}
 
-	button {
-		background: none;
-		cursor: pointer;
-	}
+.container {
+	display: inline-block;
 }
