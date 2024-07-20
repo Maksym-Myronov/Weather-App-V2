@@ -63,6 +63,7 @@ export const Header: React.FC = () => {
 	const handleSearch = (): void => {
 		if (selectedCity) {
 			dispatch(getCityInfo(selectedCity));
+			setTerm('');
 		}
 	};
 
