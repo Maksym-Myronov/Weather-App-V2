@@ -20,6 +20,7 @@ type Main = {
 };
 
 type Forecast = {
+	dt_txt: string;
 	main: Main;
 	weather: Weather[];
 };
