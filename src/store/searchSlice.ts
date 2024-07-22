@@ -64,6 +64,9 @@ export const searchSlice = createSlice({
 	reducers: {
 		removeCityFromArray: (state, action: PayloadAction<number>) => {
 			state.city = state.city.filter((city) => city.id !== action.payload);
+		},
+		removeAllCityFromArray: (state) => {
+			state.city = [];
 		}
 	},
 	extraReducers: (builder) => {
@@ -81,7 +84,7 @@ export const searchSlice = createSlice({
 			)
 			.addCase(fetchWeatherData.rejected, (state, action) => {
 				state.status = 'failed';
-				state.error = action.payload as string;
+				state.error = action.payload || 'Failed to fetch weather data';
 			})
 			.addCase(getCityInfo.pending, (state) => {
 				state.status = 'loading';
@@ -101,10 +104,11 @@ export const searchSlice = createSlice({
 			)
 			.addCase(getCityInfo.rejected, (state, action) => {
 				state.status = 'failed';
-				state.error = action.payload as string;
+				state.error = action.payload || 'Failed to fetch weather data';
 			});
 	}
 });
 
 export default searchSlice.reducer;
-export const { removeCityFromArray } = searchSlice.actions;
+export const { removeCityFromArray, removeAllCityFromArray } =
+	searchSlice.actions;

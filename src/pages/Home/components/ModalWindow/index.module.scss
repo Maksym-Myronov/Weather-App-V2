@@ -1,0 +1,39 @@
+.window {
+	position: fixed;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-color: rgba(0, 0, 0, 0.5);
+
+	&__container {
+		background: white;
+		padding: 165px 190px;
+		border-radius: 10px;
+		text-align: center;
+
+		&__btns {
+			margin-top: 50px;
+		}
+
+		&__cancel {
+			background: royalblue;
+			color: white;
+			padding: 5px 25px;
+			border-radius: 7px;
+			cursor: pointer;
+		}
+
+		&__delete {
+			background: gray;
+			color: white;
+			padding: 5px 25px;
+			border-radius: 7px;
+			margin-left: 20px;
+			cursor: pointer;
+		}
+	}
+}
