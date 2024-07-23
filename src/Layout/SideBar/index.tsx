@@ -3,17 +3,28 @@ import { Recent } from 'Layout/SideBar/components/Recent';
 import { useAppSelector } from 'hooks/useStore.ts';
 import { NoRecentCitiesCard } from 'Layout/SideBar/components/NoRecentCitiesCard';
 import { useImageWidget } from 'hooks/useImageWidget';
+import { ModalWindow } from 'pages/Home/components/ModalWindow';
 // Styles
 import s from './index.module.scss';
-import { ModalWindow } from 'pages/Home/components/ModalWindow';
+import { Pagination } from 'pages/Home/components/Pagination';
 
 export const SideBar: React.FC = () => {
 	const [isOpen, setIsOpen] = useState<boolean>(false);
 	const search = useAppSelector((state) => state.search.city);
 	const [renderWeatherImageForWidgets] = useImageWidget();
+	const [currentPage, setCurrentPage] = useState<number>(1);
+	const countriesPerPage = 3;
+
+	const lastIndex = currentPage * countriesPerPage;
+	const firstIndex = lastIndex - countriesPerPage;
+	const currentCity = search?.slice(firstIndex, lastIndex);
 
 	const handleOpenModalWindow = (): void => {
 		setIsOpen(!isOpen);
+	};
+
+	const handleChangePage = (pageNumber: number): void => {
+		setCurrentPage(pageNumber);
 	};
 
 	return (
@@ -25,7 +36,7 @@ export const SideBar: React.FC = () => {
 				</button>
 			</div>
 			{search.length >= 1 ? (
-				search.map((item) => (
+				currentCity.map((item) => (
 					<Recent
 						key={item.id}
 						name={item.name}
@@ -39,6 +50,11 @@ export const SideBar: React.FC = () => {
 			) : (
 				<NoRecentCitiesCard />
 			)}
+			<Pagination
+				countriesPerPage={countriesPerPage}
+				totalCity={search.length}
+				handleChangePage={handleChangePage}
+			/>
 			{isOpen && <ModalWindow handleOpenModalWindow={handleOpenModalWindow} />}
 		</div>
 	);

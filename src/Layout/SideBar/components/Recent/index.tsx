@@ -1,14 +1,14 @@
-import React, { useState } from 'react';
-import { removeCityFromArray } from 'store/searchSlice.ts';
-import { useAppDispatch } from 'hooks/useStore.ts';
+import React, { useState, useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from 'hooks/useStore';
+import { addFavoritesCity, removeFavoriteCity } from 'store/favoritesSlice';
+import { removeCityFromArray } from 'store/searchSlice';
 // Images
 import blackHeart from 'assets/images/black-heart.png';
+import redHeart from 'assets/images/red-heart.png';
 import crosser from 'assets/images/crossed.png';
 import location from 'assets/images/location.svg';
-import redHeart from 'assets/images/red-heart.png';
 // Styles
 import s from 'Layout/SideBar/index.module.scss';
-import { addFavoritesCity, removeFavoriteCity } from 'store/favoritesSlice.ts';
 
 interface Props {
 	key: number;
@@ -28,21 +28,27 @@ export const Recent: React.FC<Props> = ({
 	renderWeatherImageForWidgets,
 	weather
 }) => {
-	const [heart, setHeart] = useState<boolean>(false);
-
 	const dispatch = useAppDispatch();
+	const favorites = useAppSelector((state) => state.favorites.favorites);
+	const isFavorite = favorites.some((city) => city.id === id);
 
-	const handleDeleteCity = (cityId: number): void => {
-		dispatch(removeCityFromArray(cityId));
-	};
+	const [heart, setHeart] = useState<boolean>(isFavorite);
 
-	const handleChangeFavoritesState = (cityId): void => {
-		setHeart(!heart);
+	useEffect(() => {
+		setHeart(isFavorite);
+	}, [isFavorite]);
+
+	const handleChangeFavoritesState = (): void => {
 		if (heart) {
-			dispatch(removeFavoriteCity(cityId));
+			dispatch(removeFavoriteCity(id));
 		} else {
 			dispatch(addFavoritesCity({ name, country, id, mainTemp, weather }));
 		}
+		setHeart(!heart);
+	};
+
+	const handleDeleteCity = (cityId: number): void => {
+		dispatch(removeCityFromArray(cityId));
 	};
 
 	return (
@@ -51,11 +57,11 @@ export const Recent: React.FC<Props> = ({
 				<div className={s.recent__card}>
 					<button
 						className={s.recent__crosser}
-						onClick={() => handleChangeFavoritesState(id)}
+						onClick={handleChangeFavoritesState}
 					>
 						<img
 							src={heart ? (redHeart as string) : (blackHeart as string)}
-							alt="blackHeart"
+							alt="heart"
 							className={s.recent__images}
 						/>
 					</button>
@@ -84,7 +90,7 @@ export const Recent: React.FC<Props> = ({
 					</div>
 					<img
 						src={renderWeatherImageForWidgets(weather)}
-						alt="mountins"
+						alt="weather"
 						className={s.recent__weather}
 					/>
 				</div>

@@ -10,6 +10,7 @@ interface WeatherData {
 		temp: number;
 		humidity: number;
 	};
+	isFavorite: boolean;
 }
 
 interface SearchState {
