@@ -3,7 +3,7 @@ import React from 'react';
 import s from './index.module.scss';
 
 type Props = {
-	key: number;
+	key: string;
 	id: number;
 	dt_txt: string;
 	temp: number;

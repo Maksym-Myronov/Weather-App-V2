@@ -19,7 +19,7 @@ export const DailyStatistics: React.FC = () => {
 					.slice(0, 8)
 					.map((item) => (
 						<Widget
-							key={item.id}
+							key={item.dt_txt}
 							id={item.id}
 							dt_txt={item.dt_txt}
 							temp={item.main.temp}

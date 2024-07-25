@@ -1,15 +1,42 @@
+@import 'styles/palette';
+
 .pagination {
 	display: flex;
+	width: 346px;
 	gap: 20px;
 	background: white;
 	border-radius: 8px;
 	padding: 0 10px;
+	position: absolute;
+	top: 616px;
 
 	&__btn {
 		background: white;
 		color: black;
-		width: 25px;
-		height: 25px;
+		width: 33px;
+		height: 36px;
 		cursor: pointer;
+		border: none;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		border-radius: 8px;
+		font-size: 16px;
+		box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+		transition:
+			background 0.8s,
+			box-shadow 0.8s;
+		margin: 5px 0;
+
+		&:hover {
+			background: $bg-black;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+		}
+	}
+
+	&__btn.active {
+		background: $bg-black;
+		color: white;
+		box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 	}
 }
