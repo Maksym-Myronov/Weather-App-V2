@@ -4,9 +4,9 @@ import { useAppSelector } from 'hooks/useStore.ts';
 import { NoRecentCitiesCard } from 'Layout/SideBar/components/NoRecentCitiesCard';
 import { useImageWidget } from 'hooks/useImageWidget';
 import { ModalWindow } from 'pages/Home/components/ModalWindow';
+import { Pagination } from 'pages/Home/components/Pagination';
 // Styles
 import s from './index.module.scss';
-import { Pagination } from 'pages/Home/components/Pagination';
 
 export const SideBar: React.FC = () => {
 	const [isOpen, setIsOpen] = useState<boolean>(false);
@@ -48,7 +48,7 @@ export const SideBar: React.FC = () => {
 					/>
 				))
 			) : (
-				<NoRecentCitiesCard />
+				<NoRecentCitiesCard pageName={'Recent'} />
 			)}
 			<Pagination
 				countriesPerPage={countriesPerPage}

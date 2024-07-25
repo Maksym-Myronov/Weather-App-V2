@@ -3,7 +3,7 @@
 
 .recent {
 	width: 346px;
-	margin-bottom: 20px;
+	margin-bottom: 10px;
 
 	&__header {
 		@include d-flex(null, space-between, center);
